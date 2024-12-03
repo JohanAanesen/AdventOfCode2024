@@ -25,9 +25,9 @@ func main() {
 	for r.Scan() {
 		line := r.Text()
 
-		//mul\(([0-9]|[1-9][0-9]|[1-9][0-9][0-9]),([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\)
+		//mul\((\d+),(\d+)\)
 
-		r := regexp.MustCompile(`mul\(([0-9]|[1-9][0-9]|[1-9][0-9][0-9]),([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\)`)
+		r := regexp.MustCompile(`mul\((\d+),(\d+)\)`)
 		matches := r.FindAllStringSubmatch(line, -1)
 		for _, v := range matches {
 			nrOne, _ := strconv.Atoi(v[1])
@@ -35,9 +35,9 @@ func main() {
 			counter += nrOne * nrTwo
 		}
 
-		// mul\(([0-9]|[1-9][0-9]|[1-9][0-9][0-9]),([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\)|(do\(\))*(don't\(\))*
+		// mul\((\d+),(\d+)\)|(do\(\))*(don't\(\))*
 
-		r2 := regexp.MustCompile(`mul\(([0-9]|[1-9][0-9]|[1-9][0-9][0-9]),([0-9]|[1-9][0-9]|[1-9][0-9][0-9])\)|do\(\)|don't\(\)`)
+		r2 := regexp.MustCompile(`mul\((\d+),(\d+)\)|do\(\)|don't\(\)`)
 		matches2 := r2.FindAllStringSubmatch(line, -1)
 		for _, v := range matches2 {
 			if v[0] == "do()" {
