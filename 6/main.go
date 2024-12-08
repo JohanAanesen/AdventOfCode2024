@@ -9,6 +9,8 @@ import (
 )
 
 func main() {
+	ROWLENGTH := 130
+
 	b, err := os.Open("input.txt")
 	if err != nil {
 		fmt.Println(err)
@@ -18,7 +20,7 @@ func main() {
 
 	r := bufio.NewScanner(b)
 
-	input := make([][]string, 130)
+	input := make([][]string, ROWLENGTH)
 	lineCounter := 0
 	for r.Scan() {
 		line := r.Text()
@@ -26,7 +28,7 @@ func main() {
 		lineCounter++
 	}
 
-	path := make([][]string, 130)
+	path := make([][]string, ROWLENGTH)
 	x, y := 0, 0
 	x2, y2 := 0, 0
 	for i := 0; i < len(input); i++ {
@@ -36,9 +38,9 @@ func main() {
 				x = j
 				x2 = j
 				y = i
-				y2 = j
-				input[y][x] = "X"
+				y2 = i
 
+				input[i][j] = "X"
 			}
 		}
 		path[i] = append(path[i], input[i]...)
@@ -46,7 +48,7 @@ func main() {
 
 	dx, dy := 0, -1
 
-	for 0 < x+dx && x+dx < len(input) && 0 < y+dy && y+dy < len(input) {
+	for 0 <= x+dx && x+dx < len(input) && 0 <= y+dy && y+dy < len(input) {
 
 		if input[y+dy][x+dx] == "#" {
 			//turn 90
@@ -103,7 +105,7 @@ func part2(path [][]string, x int, y int) int {
 			dx, dy := 0, -1
 			dir := "U"
 
-			for 0 < ix+dx && ix+dx < len(path) && 0 < iy+dy && iy+dy < len(path) {
+			for 0 <= ix+dx && ix+dx < len(path) && 0 <= iy+dy && iy+dy < len(path) {
 
 				for path[iy+dy][ix+dx] == "#" {
 					//turn 90
