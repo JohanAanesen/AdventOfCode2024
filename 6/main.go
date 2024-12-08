@@ -105,7 +105,7 @@ func part2(path [][]string, x int, y int) int {
 
 			for 0 < ix+dx && ix+dx < len(path) && 0 < iy+dy && iy+dy < len(path) {
 
-				if path[iy+dy][ix+dx] == "#" {
+				for path[iy+dy][ix+dx] == "#" {
 					//turn 90
 					if dx == 0 && dy == -1 {
 						dx, dy = 1, 0
